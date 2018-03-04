@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import {StackNavigator,} from 'react-navigation';
 
-const App = StackNavigator({
+const Application = StackNavigator({
   Communal: { screen: Communal },
   Personal: { screen: Personal },
 });
@@ -11,6 +12,7 @@ class Communal extends React.Component{
     title: "What's on everyone's mind?",
   };
   render() {
+	  return( <Text>{ navigationOptions } </Text>);
   }
 }
 
@@ -19,6 +21,7 @@ class Personal extends React.Component{
     title: "What's on your mind?",
   };
   render() {
+	  return (<Text> { navigationOptions } </Text>);
   }
 }
 
@@ -27,7 +30,6 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-	    <Header />
         <Text>Open up App.js to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
         <Text>Shake your phone to open the developer menu.</Text>
