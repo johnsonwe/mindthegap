@@ -1,13 +1,27 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-class Header extends React.Component {
-	render() {
-		return (
-			<Text> This is text </Text>
-		);
-	}
+const App = StackNavigator({
+  Communal: { screen: Communal },
+  Personal: { screen: Personal },
+});
+
+class Communal extends React.Component{
+    static navigationOptions = {
+    title: "What's on everyone's mind?",
+  };
+  render() {
+  }
 }
+
+class Personal extends React.Component{
+    static navigationOptions = {
+    title: "What's on your mind?",
+  };
+  render() {
+  }
+}
+
 
 export default class App extends React.Component {
   render() {
