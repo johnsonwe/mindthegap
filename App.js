@@ -1,35 +1,58 @@
+import Expo, {SQLite } from 'expo';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import {StackNavigator,} from 'react-navigation';
 
-const Application = StackNavigator({
-  Communal: { screen: Communal },
-  Personal: { screen: Personal },
-});
+const db = SQLite.openDatabase('app.db');
 
-class Communal extends React.Component{
-    static navigationOptions = {
-    title: "What's on everyone's mind?",
-  };
-  render() {
-	  return( <Text>{ navigationOptions } </Text>);
-  }
+class Header extends React.Component {
+constructor(props) {
+	    super(props)
+
+	    this.state = {
+		          test: "",
+		        };
+	
+
+	    db.transaction((tx) => {
+		          tx.executeSql('select * from tbl1',[], (tx,results) => {
+				  var len = results.rows.length;
+				  alert(len);
+				  if(len > 0) {
+			  var row = results.rows.item(0);
+				  this.setState({test: row.one});
+				  }
+				  else{
+				  }
+			  }, () => { alert("this failed"); });
+						                                                   });
+
 }
-
-class Personal extends React.Component{
-    static navigationOptions = {
-    title: "What's on your mind?",
-  };
-  render() {
-	  return (<Text> { navigationOptions } </Text>);
-  }
+	render() {
+		
+		return (
+			<Text>{  this.state.test }hello	</Text>
+		);
+	}
 }
-
 
 export default class App extends React.Component {
+
+	componentDidMount() {
+		    db.transaction(tx => {
+			          tx.executeSql(
+					          'create table if not exists tbl1 (one varchar(10) , two smallint);'
+					        );
+			        });
+		db.transaction(tx => {
+			tx.executeSql("insert into tbl1 values('what', 10)");
+		}
+		);
+	}
+	
   render() {
     return (
       <View style={styles.container}>
+	    <Header />
         <Text>Open up App.js to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
         <Text>Shake your phone to open the developer menu.</Text>
