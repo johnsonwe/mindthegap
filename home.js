@@ -18,7 +18,7 @@ constructor(props) {
 	
 
 	    db.transaction((tx) => {
-		          tx.executeSql('select * from tbl1',[], (tx,results) => {
+		          tx.executeSql('select * from tbl2',[], (tx,results) => {
 				  var len = results.rows.length;
 				  alert(len);
 				  if(len > 0) {
@@ -56,9 +56,9 @@ class Journal extends React.Component {
 
 	add = () => {
 		db.transaction(tx => {
-			alert("this ran");
+			alert("Inserted into the databse");
 			tx.executeSql(
-				"insert into tbl1 values(2,'4/4/18', ?)",[this.state.text]);
+				"insert into tbl2 values(2,'4/4/18', ?)",[this.state.text]);
 		});
 	}
 
@@ -76,21 +76,18 @@ class Journal extends React.Component {
 
 class HomeScreen extends React.Component {
 
-	static navigationOptions = {
-		title: 'Welcome',
-	};
 // Mount the database
 //Create all the data for the app here
 	componentDidMount() {
 		    db.transaction(tx => {
 			          tx.executeSql(
-					          'create table if not exists tbl1 (journal_id int, date text, content text);'
+					          'create table if not exists tbl2: (journal_id int, date text, content text);'
 					        );
 			        });
 //Create data here
 		db.transaction(tx => {
-			tx.executeSql("insert into tbl1 values(0, '10/12/13', 'Hello, this is my jounral')");
-			tx.executeSql("insert into tbl1 values(1, '10/12/14', 'Hello, what')");
+			tx.executeSql("insert into tbl2 values(0, '10/12/13', 'Hello, this is my jounral')");
+			tx.executeSql("insert into tbl2 values(1, '10/12/14', 'Hello, what')");
 		}
 		);
 	}

@@ -8,8 +8,23 @@ import { styles } from './styles.js';
 const db = SQLite.openDatabase('app.db');
 
 export default class ThoughtScreen extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			items : "yes",
+		};
+
+
+		db.transaction( tx => {
+			tx.executeSql('select * from tbl2', [], (tx,results) => {
+			var row = results.rows.item(0);	
+				alert(row.content);
+				this.setState({items: row.content});
+			});
+		});
+	}
 
 	render() {
-		return ( <View><Text>Hey, This actually works</Text></View>);
+		return ( <View><Text>{ this.state.items } </Text></View>);
 	}
 }
