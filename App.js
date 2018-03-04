@@ -1,6 +1,6 @@
 import Expo, {SQLite } from 'expo';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 //Connect to the datbase
 const db = SQLite.openDatabase('app.db');
 
@@ -43,12 +43,13 @@ export default class App extends React.Component {
 	componentDidMount() {
 		    db.transaction(tx => {
 			          tx.executeSql(
-					          'create table if not exists tbl1 (one varchar(10) , two smallint);'
+					          'create table if not exists tbl1 (journal_id int, date text, content text);'
 					        );
 			        });
 //Create data here
 		db.transaction(tx => {
-			tx.executeSql("insert into tbl1 values('what', 10)");
+			tx.executeSql("insert into tbl1 values(0, '10/12/13', 'Hello, this is my jounral')");
+			tx.executeSql("insert into tbl1 values(1, '10/12/14', 'Hello, what')");
 		}
 		);
 	}
