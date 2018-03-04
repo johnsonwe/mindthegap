@@ -1,9 +1,11 @@
 import Expo, {SQLite } from 'expo';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
+//Connect to the datbase
 const db = SQLite.openDatabase('app.db');
 
+
+//Example componenet that connects to the datbase
 class Header extends React.Component {
 constructor(props) {
 	    super(props)
@@ -36,13 +38,15 @@ constructor(props) {
 }
 
 export default class App extends React.Component {
-
+// Mount the database
+//Create all the data for the app here
 	componentDidMount() {
 		    db.transaction(tx => {
 			          tx.executeSql(
 					          'create table if not exists tbl1 (one varchar(10) , two smallint);'
 					        );
 			        });
+//Create data here
 		db.transaction(tx => {
 			tx.executeSql("insert into tbl1 values('what', 10)");
 		}
@@ -52,7 +56,6 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-	    <Header />
         <Text>Open up App.js to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
         <Text>Shake your phone to open the developer menu.</Text>
