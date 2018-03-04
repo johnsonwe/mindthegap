@@ -101,11 +101,6 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
 	    <Header title="My Journal" />
 	    <Journal />
-	    <Button 
-	    title="See other peoples thoughts!"
-	    onPress={() => {
-			    navigate('Thoughts');}}
-		    />
       </View>
     );
   }
